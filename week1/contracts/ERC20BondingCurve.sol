@@ -20,7 +20,6 @@ contract ERC20BondingCurve is ERC20Capped, Ownable {
     uint256 public withdrawableBalance;
 
     constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol) ERC20Capped(MAX_SUPPLY) {
-        _mint(msg.sender, 100 * 10 ** uint256(decimals()));
     }
 
     /**
