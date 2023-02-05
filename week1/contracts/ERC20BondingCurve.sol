@@ -62,8 +62,8 @@ contract ERC20BondingCurve is ERC20Capped, Ownable {
         // First calculate the current price if buying 1 token
         uint256 currentPrice = INITIAL_PRICE + PRICE_INCREASE_PER_TOKEN * totalSupply();
         // Add the extra price for buying more than 1 token
-        uint256 extraPricePerEachAmount = PRICE_INCREASE_PER_TOKEN * _amount - PRICE_INCREASE_PER_TOKEN;
-        require(msg.value == _amount * currentPrice + extraPricePerEachAmount, "Incorrect ETH amount paid");
+        uint256 extraPriceForMultipleTokens = PRICE_INCREASE_PER_TOKEN * _amount - PRICE_INCREASE_PER_TOKEN;
+        require(msg.value == _amount * currentPrice + extraPriceForMultipleTokens, "Incorrect ETH amount paid");
 
         // Update the total paid per address
         totalPaidPerAddress[msg.sender] += msg.value;
