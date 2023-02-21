@@ -1,16 +1,18 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
+import {ERC1363} from "erc-payable-token/contracts/token/ERC1363/ERC1363.sol";
 import {ERC20Capped, ERC20} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
- * @title RareSkills Week1 ERC-20 Fixed Price Mint Contract
+ * @title RareSkills Week1 ERC-1363 Fixed Price Mint Contract
  * @author Ben Yu
- * @notice An ERC-20 contract that implements sanctioning addresses, admin transfers, and fixed price minting
+ * @notice An ERC-1363 contract that implements sanctioning addresses, admin transfers, and fixed price minting
  */
-contract ERC20FixedPrice is ERC20Capped, Ownable {
-    uint256 public constant MAX_SUPPLY = 100_000_000 * 10 ** 18;
+contract ERC1363FixedPrice is ERC1363, ERC20Capped, Ownable {
+    uint256 public constant MAX_SUPPLY = 100_000_000 ether; // 100 million tokens; ether is shorthand for 18 decimal places
+    uint256 public constant TOKENS_PER_ETH = 10000; // This translates to the wei level for more granularity
 
     mapping(address => bool) public bannedAddresses;
 
@@ -18,6 +20,13 @@ contract ERC20FixedPrice is ERC20Capped, Ownable {
         string memory _name,
         string memory _symbol
     ) ERC20(_name, _symbol) ERC20Capped(MAX_SUPPLY) {}
+
+    function _mint(
+        address account,
+        uint256 amount
+    ) internal override(ERC20, ERC20Capped) {
+        ERC20Capped._mint(account, amount);
+    }
 
     /**
      * @notice Admin function to ban or unban an address
@@ -63,16 +72,14 @@ contract ERC20FixedPrice is ERC20Capped, Ownable {
 
     /**
      * @notice Function to mint tokens at a fixed price of 10,000 tokens per ETH
+     * @dev The amount is specified in 18 decimal places of the token as an integer (e.g. the same as wei)
      * @param _amount Amount of tokens to mint
      */
     function mintFixedPrice(uint256 _amount) external payable {
+        require(_amount % 10_000 == 0, "Amount must be a multiple of 10,000");
         require(
-            _amount % 10_000 == 0,
-            "ERC20: amount must be a multiple of 10,000"
-        );
-        require(
-            msg.value == (_amount / 10 ** uint256(decimals())) / 10_000,
-            "ERC20: incorrect ETH amount"
+            msg.value == (_amount / TOKENS_PER_ETH),
+            "Incorrect ETH amount"
         );
         _mint(msg.sender, _amount);
     }
