@@ -129,12 +129,10 @@ contract ERC1363BondingCurve is
         console.log("currentPrice", currentPrice);
         uint256 endingPrice = currentPrice +
             ((_amount * PRICE_INCREASE_PER_TOKEN) / oneToken()); // 0 + (1000000 * 0.0001 (= 100) * 10 ** 18) / 10 ** 18
-        // what if currentPrice is 0.0001
-        uint256 realAmount = _amount / oneToken();
         console.log("endingPrice", endingPrice);
-        uint256 priceToPay = ((currentPrice +
-            endingPrice +
-            smallestUnitOfPriceIncrease()) * (_amount)) / 2;
+        uint256 priceToPay = ((currentPrice + endingPrice) * (_amount)) /
+            oneToken() /
+            2;
         console.log("Price to pay", priceToPay);
         require(msg.value == priceToPay, "Incorrect ETH amount paid");
 
