@@ -31,10 +31,10 @@ contract ERC1363BondingCurve is
     ) ERC20(_name, _symbol) ERC20Capped(MAX_SUPPLY) {}
 
     function _mint(
-        address account,
-        uint256 amount
+        address _account,
+        uint256 _amount
     ) internal override(ERC20, ERC20Capped) {
-        ERC20Capped._mint(account, amount);
+        ERC20Capped._mint(_account, _amount);
     }
 
     /**
@@ -58,18 +58,18 @@ contract ERC1363BondingCurve is
 
     /**
      * @dev Overrides the default _beforeTokenTransfer function to add ban checks
-     * @param from Address sending tokens
-     * @param to Address receiving tokens
-     * @param amount Amount of tokens being transferred
+     * @param _from Address sending tokens
+     * @param _to Address receiving tokens
+     * @param _amount Amount of tokens being transferred
      */
     function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 amount
+        address _from,
+        address _to,
+        uint256 _amount
     ) internal override {
-        require(!bannedAddresses[from], "Transfer from banned address");
-        require(!bannedAddresses[to], "Transfer to banned address");
-        super._beforeTokenTransfer(from, to, amount);
+        require(!bannedAddresses[_from], "Transfer from banned address");
+        require(!bannedAddresses[_to], "Transfer to banned address");
+        super._beforeTokenTransfer(_from, _to, _amount);
     }
 
     /**
@@ -130,26 +130,26 @@ contract ERC1363BondingCurve is
      * transfer. Return of other than the magic value MUST result in the
      * transaction being reverted.
      * Note: the token contract address is always the message sender.
-     * @param spender address The address which called `transferAndCall` or `transferFromAndCall` function
-     * @param amount uint256 The amount of tokens transferred
+     * @param _spender address The address which called `transferAndCall` or `transferFromAndCall` function
+     * @param _amount uint256 The amount of tokens transferred
      * @return `bytes4(keccak256("onTransferReceived(address,address,uint256,bytes)"))` unless throwing
      */
     function onTransferReceived(
-        address spender,
+        address _spender,
         address,
-        uint256 amount,
+        uint256 _amount,
         bytes calldata
     ) external override returns (bytes4) {
         uint256 currentPrice = getCurrentPrice();
         uint256 endingPrice = currentPrice -
-            ((amount * PRICE_INCREASE_PER_TOKEN) / oneToken());
-        uint256 priceToRefund = ((currentPrice + endingPrice) * amount) /
+            ((_amount * PRICE_INCREASE_PER_TOKEN) / oneToken());
+        uint256 priceToRefund = ((currentPrice + endingPrice) * _amount) /
             oneToken() /
             2;
 
-        _burn(msg.sender, amount);
+        _burn(msg.sender, _amount);
 
-        (bool success, ) = spender.call{value: priceToRefund}("");
+        (bool success, ) = _spender.call{value: priceToRefund}("");
         require(success, "Transfer failed.");
         return
             bytes4(
