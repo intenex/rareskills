@@ -17,47 +17,9 @@ describe("ERC1363BondingCurve", function () {
         "BondingCurveToken",
         "BCT"
       );
+      bondingCurveTokenUserA = bondingCurveToken.connect(userA);
       await bondingCurveToken.deployed();
     });
-
-    // it("succeeds minting 100000 smallest units of account", async function () {
-    //   const count = 100000;
-    //   expect(await bondingCurveToken.getCurrentPrice()).to.be.equal(0);
-    //   const currentPrice = await bondingCurveToken.getCurrentPrice();
-
-    //   const PRICE_INCREASE_PER_TOKEN =
-    //     await bondingCurveToken.PRICE_INCREASE_PER_TOKEN();
-    //   const smallestUnitOfIncrease = PRICE_INCREASE_PER_TOKEN.div(
-    //     ethers.utils.parseEther("0.0001")
-    //   );
-    //   const decimals = ethers.utils.parseEther("1");
-    //   const endingPrice = currentPrice.add(
-    //     PRICE_INCREASE_PER_TOKEN.mul(count).div(decimals)
-    //   );
-    //   const amountToPay = currentPrice
-    //     .add(endingPrice)
-    //     .add(smallestUnitOfIncrease)
-    //     .mul(count)
-    //     .div(2);
-    //   console.log(`currentPrice`, ethers.utils.formatEther(currentPrice));
-    //   console.log(`endingPrice`, ethers.utils.formatEther(endingPrice));
-    //   console.log(`amountToPay`, ethers.utils.formatEther(amountToPay));
-
-    //   await bondingCurveToken.connect(userA).mintBondingCurve(count, {
-    //     value: amountToPay,
-    //   });
-
-    //   expect(await bondingCurveToken.getCurrentPrice()).to.be.equal(
-    //     endingPrice
-    //   );
-    //   expect(await bondingCurveToken.balanceOf(userA.address)).to.be.equal(
-    //     count
-    //   );
-
-    //   expect(
-    //     await bondingCurveToken.provider.getBalance(bondingCurveToken.address)
-    //   ).to.be.equal(amountToPay);
-    // });
 
     it("succeeds minting a small number of tokens", async function () {
       const count = ethers.utils.parseEther("0.000001");
@@ -66,24 +28,17 @@ describe("ERC1363BondingCurve", function () {
 
       const PRICE_INCREASE_PER_TOKEN =
         await bondingCurveToken.PRICE_INCREASE_PER_TOKEN();
-      const smallestUnitOfIncrease = PRICE_INCREASE_PER_TOKEN.div(
-        ethers.utils.parseEther("0.0001")
-      );
       const decimals = ethers.utils.parseEther("1");
       const endingPrice = currentPrice.add(
         PRICE_INCREASE_PER_TOKEN.mul(count).div(decimals)
       );
       const amountToPay = currentPrice
         .add(endingPrice)
-        // .add(smallestUnitOfIncrease)
         .mul(count)
         .div(decimals)
         .div(2);
-      console.log(`currentPrice`, ethers.utils.formatEther(currentPrice));
-      console.log(`endingPrice`, ethers.utils.formatEther(endingPrice));
-      console.log(`amountToPay`, ethers.utils.formatEther(amountToPay));
 
-      await bondingCurveToken.connect(userA).mintBondingCurve(count, {
+      await bondingCurveTokenUserA.mintBondingCurve(count, {
         value: amountToPay,
       });
 
@@ -106,24 +61,17 @@ describe("ERC1363BondingCurve", function () {
 
       const PRICE_INCREASE_PER_TOKEN =
         await bondingCurveToken.PRICE_INCREASE_PER_TOKEN();
-      const smallestUnitOfIncrease = PRICE_INCREASE_PER_TOKEN.div(
-        ethers.utils.parseEther("0.0001")
-      );
       const decimals = ethers.utils.parseEther("1");
       const endingPrice = currentPrice.add(
         PRICE_INCREASE_PER_TOKEN.mul(count).div(decimals)
       );
       const amountToPay = currentPrice
         .add(endingPrice)
-        // .add(smallestUnitOfIncrease)
         .mul(count)
         .div(decimals)
         .div(2);
-      console.log(`currentPrice`, ethers.utils.formatEther(currentPrice));
-      console.log(`endingPrice`, ethers.utils.formatEther(endingPrice));
-      console.log(`amountToPay`, ethers.utils.formatEther(amountToPay));
 
-      await bondingCurveToken.connect(userA).mintBondingCurve(count, {
+      await bondingCurveTokenUserA.mintBondingCurve(count, {
         value: amountToPay,
       });
 
@@ -146,24 +94,17 @@ describe("ERC1363BondingCurve", function () {
 
       const PRICE_INCREASE_PER_TOKEN =
         await bondingCurveToken.PRICE_INCREASE_PER_TOKEN();
-      const smallestUnitOfIncrease = PRICE_INCREASE_PER_TOKEN.div(
-        ethers.utils.parseEther("0.0001")
-      );
       const decimals = ethers.utils.parseEther("1");
       const endingPrice = currentPrice.add(
         PRICE_INCREASE_PER_TOKEN.mul(count).div(decimals)
       );
       const amountToPay = currentPrice
         .add(endingPrice)
-        // .add(smallestUnitOfIncrease)
         .mul(count)
         .div(decimals)
         .div(2);
-      console.log(`currentPrice`, ethers.utils.formatEther(currentPrice));
-      console.log(`endingPrice`, ethers.utils.formatEther(endingPrice));
-      console.log(`amountToPay`, ethers.utils.formatEther(amountToPay));
 
-      await bondingCurveToken.connect(userA).mintBondingCurve(count, {
+      await bondingCurveTokenUserA.mintBondingCurve(count, {
         value: amountToPay,
       });
 
@@ -177,6 +118,68 @@ describe("ERC1363BondingCurve", function () {
       expect(
         await bondingCurveToken.provider.getBalance(bondingCurveToken.address)
       ).to.be.equal(amountToPay);
+    });
+
+    it("minting and buying back refunds same amount", async function () {
+      const count = ethers.utils.parseEther("5");
+      expect(await bondingCurveToken.getCurrentPrice()).to.be.equal(0);
+      const currentPrice = await bondingCurveToken.getCurrentPrice();
+
+      const PRICE_INCREASE_PER_TOKEN =
+        await bondingCurveToken.PRICE_INCREASE_PER_TOKEN();
+      const decimals = ethers.utils.parseEther("1");
+      const endingPrice = currentPrice.add(
+        PRICE_INCREASE_PER_TOKEN.mul(count).div(decimals)
+      );
+      const amountToPay = currentPrice
+        .add(endingPrice)
+        .mul(count)
+        .div(decimals)
+        .div(2);
+
+      await bondingCurveTokenUserA.mintBondingCurve(count, {
+        value: amountToPay,
+      });
+
+      expect(await bondingCurveToken.getCurrentPrice()).to.be.equal(
+        endingPrice
+      );
+      expect(await bondingCurveToken.balanceOf(userA.address)).to.be.equal(
+        count
+      );
+
+      expect(
+        await bondingCurveToken.provider.getBalance(bondingCurveToken.address)
+      ).to.be.equal(amountToPay);
+
+      const userABalanceBefore = await bondingCurveToken.provider.getBalance(
+        userA.address
+      );
+
+      const tx = await bondingCurveTokenUserA[
+        "transferAndCall(address,uint256)"
+      ](bondingCurveToken.address, count);
+
+      const receipt = await tx.wait();
+
+      const gasUsed = receipt.cumulativeGasUsed.mul(receipt.effectiveGasPrice);
+
+      const userABalanceAfter = await bondingCurveToken.provider.getBalance(
+        userA.address
+      );
+
+      expect(
+        userABalanceAfter.add(gasUsed).sub(userABalanceBefore)
+      ).to.be.equal(amountToPay);
+
+      expect(await bondingCurveToken.getCurrentPrice()).to.be.equal(0);
+      expect(await bondingCurveToken.balanceOf(userA.address)).to.be.equal(0);
+      expect(
+        await bondingCurveToken.balanceOf(bondingCurveToken.address)
+      ).to.be.equal(0);
+      expect(
+        await bondingCurveToken.provider.getBalance(bondingCurveToken.address)
+      ).to.be.equal(0);
     });
   });
 });

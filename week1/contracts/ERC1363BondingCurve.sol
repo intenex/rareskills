@@ -5,7 +5,6 @@ import {ERC1363} from "erc-payable-token/contracts/token/ERC1363/ERC1363.sol";
 import {IERC1363Receiver} from "erc-payable-token/contracts/token/ERC1363/IERC1363Receiver.sol";
 import {ERC20Capped, ERC20} from "@openzeppelin/contracts/token/ERC20/extensions/ERC20Capped.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
-import "hardhat/console.sol";
 
 /**
  * @title RareSkills Week1 ERC-1363 Bonding Curve Mint Contract
@@ -19,8 +18,8 @@ contract ERC1363BondingCurve is
     Ownable
 {
     uint256 public constant MAX_SUPPLY = 100_000_000 ether; // 100 million tokens; ether is shorthand for 18 decimal places
-    uint256 public constant INITIAL_PRICE_PER_TOKEN = 0; // first token costs 0.0001 ether
-    uint256 public constant PRICE_INCREASE_PER_TOKEN = 0.0001 ether; // 100000000000000 wei payment == 1 token, or 1000000000000000000
+    uint256 public constant INITIAL_PRICE_PER_TOKEN = 0;
+    uint256 public constant PRICE_INCREASE_PER_TOKEN = 0.0001 ether;
 
     mapping(address => bool) public bannedAddresses;
 
@@ -95,15 +94,6 @@ contract ERC1363BondingCurve is
     }
 
     /**
-     * @notice Returns the current price of purchasing a token
-     */
-    function getEndingPrice(uint256 _amount) public view returns (uint256) {
-        return
-            getCurrentPrice() +
-            ((_amount * PRICE_INCREASE_PER_TOKEN) / oneToken());
-    }
-
-    /**
      * @notice Returns the smallest unit of price increase
      */
     function smallestUnitOfPriceIncrease() public pure returns (uint256) {
@@ -120,20 +110,14 @@ contract ERC1363BondingCurve is
             "Cannot mint more than max supply"
         );
 
-        uint256 oneUnit = (PRICE_INCREASE_PER_TOKEN * _amount) / oneToken();
-        console.log("oneUnit", oneUnit);
-
-        // NOTE - finding the price to pay is just finding the area of a trapezoid - (base 1 + base 2 + 1) * height / 2
-        // In this case height is actually the # of tokens and base 1 is the current price and base 2 is the final price after all the tokens are purchased
+        // Finding the price to pay is finding the area of a trapezoid - (base 1 + base 2) * height / 2
+        // Height == # of tokens, base 1 is the current price, base 2 is the final price after all the tokens are purchased
         uint256 currentPrice = getCurrentPrice(); // 0
-        console.log("currentPrice", currentPrice);
         uint256 endingPrice = currentPrice +
-            ((_amount * PRICE_INCREASE_PER_TOKEN) / oneToken()); // 0 + (1000000 * 0.0001 (= 100) * 10 ** 18) / 10 ** 18
-        console.log("endingPrice", endingPrice);
-        uint256 priceToPay = ((currentPrice + endingPrice) * (_amount)) /
+            ((_amount * PRICE_INCREASE_PER_TOKEN) / oneToken());
+        uint256 priceToPay = ((currentPrice + endingPrice) * _amount) /
             oneToken() /
             2;
-        console.log("Price to pay", priceToPay);
         require(msg.value == priceToPay, "Incorrect ETH amount paid");
 
         _mint(msg.sender, _amount);
@@ -147,25 +131,25 @@ contract ERC1363BondingCurve is
      * transaction being reverted.
      * Note: the token contract address is always the message sender.
      * @param spender address The address which called `transferAndCall` or `transferFromAndCall` function
-     * @param sender address The address which are token transferred from
      * @param amount uint256 The amount of tokens transferred
-     * @param data bytes Additional data with no specified format
      * @return `bytes4(keccak256("onTransferReceived(address,address,uint256,bytes)"))` unless throwing
      */
     function onTransferReceived(
         address spender,
-        address sender,
+        address,
         uint256 amount,
-        bytes calldata data
+        bytes calldata
     ) external override returns (bytes4) {
         uint256 currentPrice = getCurrentPrice();
         uint256 endingPrice = currentPrice -
             ((amount * PRICE_INCREASE_PER_TOKEN) / oneToken());
-        uint256 priceToRefund = ((currentPrice +
-            endingPrice +
-            PRICE_INCREASE_PER_TOKEN) * amount) / 2;
+        uint256 priceToRefund = ((currentPrice + endingPrice) * amount) /
+            oneToken() /
+            2;
+
         _burn(msg.sender, amount);
-        (bool success, ) = msg.sender.call{value: priceToRefund}("");
+
+        (bool success, ) = spender.call{value: priceToRefund}("");
         require(success, "Transfer failed.");
         return
             bytes4(
