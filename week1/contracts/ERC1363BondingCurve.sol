@@ -94,13 +94,6 @@ contract ERC1363BondingCurve is
     }
 
     /**
-     * @notice Returns the smallest unit of price increase
-     */
-    function smallestUnitOfPriceIncrease() public pure returns (uint256) {
-        return PRICE_INCREASE_PER_TOKEN / 100000000000000;
-    }
-
-    /**
      * @notice Function to mint tokens at a bonding curve price
      * @param _amount Amount of tokens to mint in smallest unit of account (18 decimal places)
      */
