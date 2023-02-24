@@ -35,6 +35,8 @@ describe("BitmapMerkleTreeERC721", function () {
         solidityKeccak256(["uint256", "address"], [bitmapNumber, address])
       );
 
+      await erc721.setMerkleRootBitmap(presaleMerkleTreeRoot);
+
       await erc721UserA.presaleMintBitmap(bitmapNumber, proof, {
         value: ethers.utils.parseEther("0.01"),
       });
