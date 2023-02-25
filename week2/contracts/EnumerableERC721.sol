@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.18;
 
-import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import {ERC721Enumerable, ERC721} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Counters} from "@openzeppelin/contracts/utils/Counters.sol";
 
 /**
- * @title Basic ERC-721
+ * @title Basic Enumerable ERC721 Contract
  * @author Ben Yu
- * @notice This contract handles public minting of ERC-721 tokens
+ * @notice An ERC721Enumerable contract with basic functionality
  */
-contract ERC721Staking is ERC721, Ownable {
+contract EnumerableERC721 is ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
     Counters.Counter private supplyCounter;
 
@@ -29,7 +29,10 @@ contract ERC721Staking is ERC721, Ownable {
     constructor(
         string memory _name,
         string memory _symbol
-    ) ERC721(_name, _symbol) {}
+    ) ERC721(_name, _symbol) {
+        // Start token IDs at 1
+        supplyCounter.increment();
+    }
 
     /**
      * @notice Override the default base URI function to provide a real base URI
@@ -47,13 +50,6 @@ contract ERC721Staking is ERC721, Ownable {
     }
 
     /**
-     * @notice Returns the total supply of tokens
-     */
-    function totalSupply() public view returns (uint256) {
-        return supplyCounter.current();
-    }
-
-    /**
      * @notice Allows for public minting of tokens
      * @param _mintNumber Number of tokens to mint
      */
@@ -64,6 +60,28 @@ contract ERC721Staking is ERC721, Ownable {
         for (uint256 i = 0; i < _mintNumber; i++) {
             _safeMint(msg.sender, supplyCounter.current());
             supplyCounter.increment();
+        }
+    }
+
+    /**
+     * @notice Allow owner to send `mintNumber` tokens without cost to multiple addresses
+     * @param _receivers Array of addresses to send tokens to
+     * @param _mintNumber Number of tokens to send to each address
+     */
+    function gift(
+        address[] calldata _receivers,
+        uint256 _mintNumber
+    ) external onlyOwner {
+        require(
+            (totalSupply() + (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+            "MINT_TOO_LARGE"
+        );
+
+        for (uint256 i = 0; i < _receivers.length; i++) {
+            for (uint256 j = 0; j < _mintNumber; j++) {
+                _safeMint(_receivers[i], supplyCounter.current());
+                supplyCounter.increment();
+            }
         }
     }
 
