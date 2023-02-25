@@ -32,8 +32,6 @@ contract BitmapMerkleTreeERC721 is
 
     string public baseTokenURI =
         "ipfs://bafybeih5lgrstt7kredzhpcvmft2qefue5pl3ykrdktadw5w62zd7cbkja/";
-    bool public publicSaleActive;
-    bool public presaleActive;
     bytes32 public merkleRootMapping;
     bytes32 public merkleRootBitmap;
     mapping(address => bool) public presaleMinted;
@@ -151,22 +149,6 @@ contract BitmapMerkleTreeERC721 is
      */
     function totalSupply() public view returns (uint256) {
         return supplyCounter.current();
-    }
-
-    /**
-     * @notice To be updated by contract owner to activate/deactivate public minting
-     * @param _publicSaleActive Boolean to activate/deactivate public minting
-     */
-    function setPublicSaleActive(bool _publicSaleActive) external onlyOwner {
-        publicSaleActive = _publicSaleActive;
-    }
-
-    /**
-     * @notice To be updated by contract owner to activate/deactivate presale minting
-     * @param _presaleActive Boolean to activate/deactivate presale minting
-     */
-    function setPresaleActive(bool _presaleActive) external onlyOwner {
-        publicSaleActive = _presaleActive;
     }
 
     /**
