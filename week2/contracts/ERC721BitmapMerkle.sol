@@ -176,8 +176,8 @@ contract BitmapMerkleTreeERC721 is
         require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
 
         for (uint256 i = 0; i < _mintNumber; i++) {
-            _safeMint(msg.sender, supplyCounter.current());
             supplyCounter.increment();
+            _safeMint(msg.sender, supplyCounter.current());
         }
     }
 

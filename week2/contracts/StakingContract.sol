@@ -9,7 +9,7 @@ import {IERC20Staking} from "./IERC20Staking.sol";
 /**
  * @title RareSkills Week 2 Staking ERC-721 Contract
  * @author Ben Yu
- * @notice An contract for staking NFTs and claiming ERC-20 tokens
+ * @notice A contract for staking NFTs and claiming ERC-20 tokens
  */
 contract StakingContract is IERC721Receiver, Ownable {
     address public erc20Contract;
@@ -68,6 +68,9 @@ contract StakingContract is IERC721Receiver, Ownable {
      */
     function withdrawNFT(uint256 _tokenId) external {
         require(nftToOwner[_tokenId] == msg.sender, "Only owner can withdraw");
+        delete nftToOwner[_tokenId];
+        delete nftToTimeStakedSinceLastClaim[_tokenId];
+        // If the MAX_SUPPLY is hit on the ERC-20, tokens aren't withdrawable so need to update there
         IERC20Staking(erc20Contract).mint(
             msg.sender,
             getClaimableTokens(_tokenId)
@@ -77,8 +80,6 @@ contract StakingContract is IERC721Receiver, Ownable {
             msg.sender,
             _tokenId
         );
-        delete nftToOwner[_tokenId];
-        delete nftToTimeStakedSinceLastClaim[_tokenId];
     }
 
     /**
