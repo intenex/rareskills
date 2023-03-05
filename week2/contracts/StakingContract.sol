@@ -68,13 +68,11 @@ contract StakingContract is IERC721Receiver, Ownable {
      */
     function withdrawNFT(uint256 _tokenId) external {
         require(nftToOwner[_tokenId] == msg.sender, "Only owner can withdraw");
+        uint256 claimableTokens = getClaimableTokens(_tokenId);
         delete nftToOwner[_tokenId];
         delete nftToTimeStakedSinceLastClaim[_tokenId];
         // If the MAX_SUPPLY is hit on the ERC-20, tokens aren't withdrawable so need to update there
-        IERC20Staking(erc20Contract).mint(
-            msg.sender,
-            getClaimableTokens(_tokenId)
-        );
+        IERC20Staking(erc20Contract).mint(msg.sender, claimableTokens);
         IERC721(erc721Contract).safeTransferFrom(
             address(this),
             msg.sender,
@@ -88,10 +86,8 @@ contract StakingContract is IERC721Receiver, Ownable {
      */
     function claimTokens(uint256 _tokenId) external {
         require(nftToOwner[_tokenId] == msg.sender, "Only owner can claim");
-        IERC20Staking(erc20Contract).mint(
-            msg.sender,
-            getClaimableTokens(_tokenId)
-        );
+        uint256 claimableTokens = getClaimableTokens(_tokenId);
         nftToTimeStakedSinceLastClaim[_tokenId] = block.timestamp;
+        IERC20Staking(erc20Contract).mint(msg.sender, claimableTokens);
     }
 }

@@ -9,6 +9,7 @@
     "@nomiclabs/hardhat-etherscan": "^3.1.6",
     "@openzeppelin/contracts": "^4.8.1",
     "merkletreejs": "^0.3.9",
-    "operator-filter-registry": "^1.4.0"
+    "operator-filter-registry": "^1.4.0",
+    "solidity-coverage": "^0.8.2"
   }
 }

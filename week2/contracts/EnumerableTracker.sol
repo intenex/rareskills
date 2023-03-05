@@ -52,7 +52,7 @@ contract EnumerableTracker {
         address _owner
     ) public view returns (uint256) {
         IERC721Enumerable erc721 = IERC721Enumerable(erc721Contract);
-        uint256 primeTokenIdCount;
+        uint256 primeTokenIdCount = 0;
         uint256 totalTokenIdCount = erc721.balanceOf(_owner);
         for (uint256 i = 0; i < totalTokenIdCount; i++) {
             uint256 tokenId = erc721.tokenOfOwnerByIndex(_owner, i);

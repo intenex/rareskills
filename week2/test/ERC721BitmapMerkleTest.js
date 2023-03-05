@@ -47,7 +47,6 @@ describe("BitmapMerkleTreeERC721", function () {
       const proof = presaleMerkleTreeBitmap.getHexProof(
         solidityKeccak256(["uint256", "address"], [bitmapNumber, address])
       );
-      console.log("proof: ", proof);
 
       await erc721.setMerkleRootBitmap(presaleMerkleTreeRootBitmap);
 
@@ -62,7 +61,6 @@ describe("BitmapMerkleTreeERC721", function () {
       const proof = presaleMerkleTreeMapping.getHexProof(
         solidityKeccak256(["address"], [address])
       );
-      console.log(proof);
 
       await erc721.setMerkleRootMapping(presaleMerkleTreeRootMapping);
 
