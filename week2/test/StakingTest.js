@@ -32,20 +32,26 @@ describe("Staking", function () {
 
   describe("StakingContract", async function () {
     it("succeeds staking and withdrawing tokens", async function () {
-      await erc20.setMintAddress(staking.address);
-      await staking.setERC20Contract(erc20.address);
-      await staking.setERC721Contract(erc721.address);
+      const setMintAddressTx = await erc20.setMintAddress(staking.address);
+      await setMintAddressTx.wait();
+      const setERC20ContractTx = await staking.setERC20Contract(erc20.address);
+      await setERC20ContractTx.wait();
+      const setERC721ContractTx = await staking.setERC721Contract(
+        erc721.address
+      );
+      await setERC721ContractTx.wait();
 
-      await erc721UserA.publicMint(1, {
+      const publicMintTx = await erc721UserA.publicMint(1, {
         value: ethers.utils.parseEther("0.01"),
       });
+      await publicMintTx.wait();
 
-      await erc721UserA["safeTransferFrom(address,address,uint256)"](
-        userA.address,
-        staking.address,
-        0
-      );
-      await stakingUserA.claimTokens(0);
+      const xferTx = await erc721UserA[
+        "safeTransferFrom(address,address,uint256)"
+      ](userA.address, staking.address, 0);
+      await xferTx.wait();
+      const claimTokensTx = await stakingUserA.claimTokens(0);
+      await claimTokensTx.wait();
       // not guaranteed, but practically speaking 1 second passes here reliably
       expect(await erc20.balanceOf(userA.address)).to.be.equal(
         ethers.utils.parseEther("1").mul(10).div(86400)
@@ -72,19 +78,24 @@ describe("Staking", function () {
     });
 
     it("fails when not owner calls withdrawNFT", async function () {
-      await erc20.setMintAddress(staking.address);
-      await staking.setERC20Contract(erc20.address);
-      await staking.setERC721Contract(erc721.address);
+      const setMintAddressTx = await erc20.setMintAddress(staking.address);
+      await setMintAddressTx.wait();
+      const setERC20ContractTx = await staking.setERC20Contract(erc20.address);
+      await setERC20ContractTx.wait();
+      const setERC721ContractTx = await staking.setERC721Contract(
+        erc721.address
+      );
+      await setERC721ContractTx.wait();
 
-      await erc721UserA.publicMint(1, {
+      const publicMintTx = await erc721UserA.publicMint(1, {
         value: ethers.utils.parseEther("0.01"),
       });
+      await publicMintTx.wait();
 
-      await erc721UserA["safeTransferFrom(address,address,uint256)"](
-        userA.address,
-        staking.address,
-        0
-      );
+      const xferTx = await erc721UserA[
+        "safeTransferFrom(address,address,uint256)"
+      ](userA.address, staking.address, 0);
+      await xferTx.wait();
 
       await expect(stakingUserB.withdrawNFT(0)).to.be.revertedWith(
         "Only owner can withdraw"
@@ -92,19 +103,24 @@ describe("Staking", function () {
     });
 
     it("fails when not owner calls claimTokens", async function () {
-      await erc20.setMintAddress(staking.address);
-      await staking.setERC20Contract(erc20.address);
-      await staking.setERC721Contract(erc721.address);
+      const setMintAddressTx = await erc20.setMintAddress(staking.address);
+      await setMintAddressTx.wait();
+      const setERC20ContractTx = await staking.setERC20Contract(erc20.address);
+      await setERC20ContractTx.wait();
+      const setERC721ContractTx = await staking.setERC721Contract(
+        erc721.address
+      );
+      await setERC721ContractTx.wait();
 
-      await erc721UserA.publicMint(1, {
+      const publicMintTx = await erc721UserA.publicMint(1, {
         value: ethers.utils.parseEther("0.01"),
       });
+      await publicMintTx.wait();
 
-      await erc721UserA["safeTransferFrom(address,address,uint256)"](
-        userA.address,
-        staking.address,
-        0
-      );
+      const xferTx = await erc721UserA[
+        "safeTransferFrom(address,address,uint256)"
+      ](userA.address, staking.address, 0);
+      await xferTx.wait();
 
       await expect(stakingUserB.claimTokens(0)).to.be.revertedWith(
         "Only owner can claim"
@@ -131,7 +147,8 @@ describe("Staking", function () {
       expect(await erc721.baseTokenURI()).to.equal(
         "ipfs://bafybeih5lgrstt7kredzhpcvmft2qefue5pl3ykrdktadw5w62zd7cbkja/"
       );
-      await erc721.setBaseURI("https://test.com/");
+      const setBaseURITx = await erc721.setBaseURI("https://test.com/");
+      await setBaseURITx.wait();
       expect(await erc721.baseTokenURI()).to.equal("https://test.com/");
     });
 
@@ -142,9 +159,10 @@ describe("Staking", function () {
     });
 
     it("succeeds when user calls publicMint correctly", async function () {
-      await erc721UserA.publicMint(2, {
+      const publicMintTx = await erc721UserA.publicMint(2, {
         value: ethers.utils.parseEther("0.02"),
       });
+      await publicMintTx.wait();
       expect(await erc721UserA.balanceOf(userA.address)).to.equal(2);
     });
 
@@ -169,8 +187,8 @@ describe("Staking", function () {
         value: ethers.utils.parseEther("10"),
       });
       const beginningBalance = await erc721.provider.getBalance(owner.address);
-      const tx = await erc721.withdraw();
-      const receipt = await tx.wait();
+      const withdrawTx = await erc721.withdraw();
+      const receipt = await withdrawTx.wait();
       const gasUsed = receipt.cumulativeGasUsed.mul(receipt.effectiveGasPrice);
       expect(await erc721.provider.getBalance(owner.address)).to.be.equal(
         beginningBalance.sub(gasUsed).add(ethers.utils.parseEther("10"))
@@ -184,18 +202,21 @@ describe("Staking", function () {
     });
 
     it("successfully fetches the right tokenURI", async function () {
-      await erc721UserA.publicMint(2, {
+      const publicMintTx = await erc721UserA.publicMint(2, {
         value: ethers.utils.parseEther("0.02"),
       });
+      await publicMintTx.wait();
       expect(await erc721UserA.tokenURI(0)).to.be.equal(
         "ipfs://bafybeih5lgrstt7kredzhpcvmft2qefue5pl3ykrdktadw5w62zd7cbkja/0"
       );
     });
 
     it("transferOwnership and renounceOwnership succeed when owner calls", async function () {
-      await erc721.transferOwnership(userA.address);
+      const xferOwnershipTx = await erc721.transferOwnership(userA.address);
+      await xferOwnershipTx.wait();
       expect(await erc721.owner()).to.be.equal(userA.address);
-      await erc721UserA.renounceOwnership();
+      const renounceOwnershipTx = await erc721UserA.renounceOwnership();
+      await renounceOwnershipTx.wait();
       expect(await erc721.owner()).to.be.equal(
         "0x0000000000000000000000000000000000000000"
       );

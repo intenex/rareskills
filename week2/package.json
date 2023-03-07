@@ -2,8 +2,7 @@
   "name": "hardhat-project",
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^2.0.1",
-    "hardhat": "^2.12.7",
-    "hardhat-gas-reporter": "^1.0.9"
+    "hardhat": "^2.12.7"
   },
   "dependencies": {
     "@nomiclabs/hardhat-etherscan": "^3.1.6",

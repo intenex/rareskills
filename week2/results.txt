@@ -1,0 +1,1248 @@
+Mutation testing report:
+Number of mutations:    113
+Killed:                 54 / 113
+
+Mutations:
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 69
+    Result: Killed
+    Original line:
+                 require(nftToOwner[_tokenId] == msg.sender, "Only owner can withdraw");
+
+    Mutated line:
+                 require(nftToOwner[_tokenId] != msg.sender, "Only owner can withdraw");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 87
+    Result: Killed
+    Original line:
+                 require(nftToOwner[_tokenId] == msg.sender, "Only owner can claim");
+
+    Mutated line:
+                 require(nftToOwner[_tokenId] != msg.sender, "Only owner can claim");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 69
+    Result: Killed
+    Original line:
+                 require(nftToOwner[_tokenId] == msg.sender, "Only owner can withdraw");
+
+    Mutated line:
+                 require(nftToOwner[_tokenId] != msg.sender, "Only owner can withdraw");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 87
+    Result: Killed
+    Original line:
+                 require(nftToOwner[_tokenId] == msg.sender, "Only owner can claim");
+
+    Mutated line:
+                 require(nftToOwner[_tokenId] != msg.sender, "Only owner can claim");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 59
+    Result: Killed
+    Original line:
+                 uint256 timeSinceLastClaim = block.timestamp - timeStaked;
+
+    Mutated line:
+                 uint256 timeSinceLastClaim = block.timestamp + timeStaked;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 return (timeSinceLastClaim * 10 * 10 ** 18) / 86400;
+
+    Mutated line:
+                 return (timeSinceLastClaim * 10 * 10 ** 18) * 86400;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 return (timeSinceLastClaim * 10 * 10 ** 18) / 86400;
+
+    Mutated line:
+                 return (timeSinceLastClaim * 10 / 10 ** 18) / 86400;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 return (timeSinceLastClaim * 10 * 10 ** 18) / 86400;
+
+    Mutated line:
+                 return (timeSinceLastClaim / 10 * 10 ** 18) / 86400;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 23
+    Result: Killed
+    Original line:
+             function setERC20Contract(address _erc20Contract) external onlyOwner {
+
+    Mutated line:
+             function setERC20Contract(address _erc20Contract) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/StakingContract.sol
+    Line nr: 31
+    Result: Killed
+    Original line:
+             function setERC721Contract(address _erc721Contract) external onlyOwner {
+
+    Mutated line:
+             function setERC721Contract(address _erc721Contract) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 56
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) < MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 59
+    Result: Lived
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i <= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 75
+    Result: Lived
+    Original line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+
+    Mutated line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) < MAX_SUPPLY,
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 80
+    Result: Killed
+    Original line:
+                     for (uint256 j = 0; j < _mintNumber; j++) {
+
+    Mutated line:
+                     for (uint256 j = 0; j <= _mintNumber; j++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 79
+    Result: Error
+    Original line:
+                 for (uint256 i = 0; i < _receivers.length; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i <= _receivers.length; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 56
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) > MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 59
+    Result: Lived
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i >= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 75
+    Result: Killed
+    Original line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+
+    Mutated line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) > MAX_SUPPLY,
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 80
+    Result: Killed
+    Original line:
+                     for (uint256 j = 0; j < _mintNumber; j++) {
+
+    Mutated line:
+                     for (uint256 j = 0; j >= _mintNumber; j++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 79
+    Result: Killed
+    Original line:
+                 for (uint256 i = 0; i < _receivers.length; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i >= _receivers.length; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 56
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value == PRICE / _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() - _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 75
+    Result: Error
+    Original line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+
+    Mutated line:
+                     (totalSupply() - (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 75
+    Result: Lived
+    Original line:
+                     (totalSupply() + (_receivers.length * _mintNumber)) <= MAX_SUPPLY,
+
+    Mutated line:
+                     (totalSupply() + (_receivers.length / _mintNumber)) <= MAX_SUPPLY,
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 60
+    Result: Lived
+    Original line:
+                     _safeMint(msg.sender, supplyCounter.current());
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 81
+    Result: Killed
+    Original line:
+                         _safeMint(_receivers[i], supplyCounter.current());
+
+    Mutated line:
+                         
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 31
+    Result: Equivalent
+    Original line:
+             ) ERC721(_name, _symbol) {
+
+    Mutated line:
+             )  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 47
+    Result: Lived
+    Original line:
+             function setBaseURI(string calldata _newBaseURI) external onlyOwner {
+
+    Mutated line:
+             function setBaseURI(string calldata _newBaseURI) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 73
+    Result: Lived
+    Original line:
+             ) external onlyOwner {
+
+    Mutated line:
+             ) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableERC721.sol
+    Line nr: 90
+    Result: Lived
+    Original line:
+             function withdraw() external onlyOwner {
+
+    Mutated line:
+             function withdraw() external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 29
+    Result: Killed
+    Original line:
+                 if (_number <= 1) {
+
+    Mutated line:
+                 if (_number < 1) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 31
+    Result: Killed
+    Original line:
+                 } else if (_number <= 3) {
+
+    Mutated line:
+                 } else if (_number < 3) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 33
+    Result: Lived
+    Original line:
+                 } else if (_number % 2 == 0 || _number % 3 == 0) {
+
+    Mutated line:
+                 } else if (_number % 2 != 0 || _number % 3 == 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 33
+    Result: Killed
+    Original line:
+                 } else if (_number % 2 == 0 || _number % 3 == 0) {
+
+    Mutated line:
+                 } else if (_number % 2 == 0 || _number % 3 != 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+                     if (_number % i == 0 || _number % (i + 2) == 0) {
+
+    Mutated line:
+                     if (_number % i != 0 || _number % (i + 2) == 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+                     if (_number % i == 0 || _number % (i + 2) == 0) {
+
+    Mutated line:
+                     if (_number % i == 0 || _number % (i + 2) != 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 37
+    Result: Lived
+    Original line:
+                 while (i * i <= _number) {
+
+    Mutated line:
+                 while (i * i < _number) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 56
+    Result: Killed
+    Original line:
+                 for (uint256 i = 0; i < totalTokenIdCount; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i <= totalTokenIdCount; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 29
+    Result: Killed
+    Original line:
+                 if (_number <= 1) {
+
+    Mutated line:
+                 if (_number > 1) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 31
+    Result: Killed
+    Original line:
+                 } else if (_number <= 3) {
+
+    Mutated line:
+                 } else if (_number > 3) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 33
+    Result: Lived
+    Original line:
+                 } else if (_number % 2 == 0 || _number % 3 == 0) {
+
+    Mutated line:
+                 } else if (_number % 2 != 0 || _number % 3 == 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 33
+    Result: Killed
+    Original line:
+                 } else if (_number % 2 == 0 || _number % 3 == 0) {
+
+    Mutated line:
+                 } else if (_number % 2 == 0 || _number % 3 != 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+                     if (_number % i == 0 || _number % (i + 2) == 0) {
+
+    Mutated line:
+                     if (_number % i != 0 || _number % (i + 2) == 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+                     if (_number % i == 0 || _number % (i + 2) == 0) {
+
+    Mutated line:
+                     if (_number % i == 0 || _number % (i + 2) != 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 37
+    Result: Killed
+    Original line:
+                 while (i * i <= _number) {
+
+    Mutated line:
+                 while (i * i > _number) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 56
+    Result: Killed
+    Original line:
+                 for (uint256 i = 0; i < totalTokenIdCount; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i >= totalTokenIdCount; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+                     if (_number % i == 0 || _number % (i + 2) == 0) {
+
+    Mutated line:
+                     if (_number % i == 0 || _number % (i - 2) == 0) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 37
+    Result: Killed
+    Original line:
+                 while (i * i <= _number) {
+
+    Mutated line:
+                 while (i / i <= _number) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/EnumerableTracker.sol
+    Line nr: 41
+    Result: Lived
+    Original line:
+                     i += 6;
+
+    Mutated line:
+                     i -= 6;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 45
+    Result: Killed
+    Original line:
+                 require(msg.sender == mintAddress, "Only mint address can mint");
+
+    Mutated line:
+                 require(msg.sender != mintAddress, "Only mint address can mint");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 45
+    Result: Killed
+    Original line:
+                 require(msg.sender == mintAddress, "Only mint address can mint");
+
+    Mutated line:
+                 require(msg.sender != mintAddress, "Only mint address can mint");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 13
+    Result: Equivalent
+    Original line:
+             uint256 public constant MAX_SUPPLY = 100_000_000 * 10 ** 18;
+
+    Mutated line:
+             uint256 public constant MAX_SUPPLY = 100_000_000 / 10 ** 18;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 46
+    Result: Killed
+    Original line:
+                 _mint(_to, _amount);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 27
+    Result: Equivalent
+    Original line:
+             ) ERC20(_name, _symbol) ERC20Capped(MAX_SUPPLY) {
+
+    Mutated line:
+             )  ERC20Capped(MAX_SUPPLY) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 27
+    Result: Equivalent
+    Original line:
+             ) ERC20(_name, _symbol) ERC20Capped(MAX_SUPPLY) {
+
+    Mutated line:
+             ) ERC20(_name, _symbol)  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC20Staking.sol
+    Line nr: 35
+    Result: Killed
+    Original line:
+             function setMintAddress(address _mintAddress) external onlyOwner {
+
+    Mutated line:
+             function setMintAddress(address _mintAddress) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 174
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 175
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) < MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 177
+    Result: Lived
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i <= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 217
+    Result: Lived
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + 1) < MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 218
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 219
+    Result: Killed
+    Original line:
+                 require(presaleMinted[msg.sender] == false, "ALREADY_MINTED");
+
+    Mutated line:
+                 require(presaleMinted[msg.sender] != false, "ALREADY_MINTED");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 238
+    Result: Lived
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + 1) < MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 239
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 244
+    Result: Lived
+    Original line:
+                 require(_bitmapNumber < MAX_SUPPLY, "BITMAP_NUMBER_TOO_LARGE");
+
+    Mutated line:
+                 require(_bitmapNumber <= MAX_SUPPLY, "BITMAP_NUMBER_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 262
+    Result: Killed
+    Original line:
+                 require(storedBit == 1, "ALREADY_MINTED");
+
+    Mutated line:
+                 require(storedBit != 1, "ALREADY_MINTED");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 174
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 175
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) > MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 177
+    Result: Lived
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i >= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 217
+    Result: Killed
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + 1) > MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 218
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 219
+    Result: Killed
+    Original line:
+                 require(presaleMinted[msg.sender] == false, "ALREADY_MINTED");
+
+    Mutated line:
+                 require(presaleMinted[msg.sender] != false, "ALREADY_MINTED");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 238
+    Result: Killed
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + 1) > MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 239
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 244
+    Result: Killed
+    Original line:
+                 require(_bitmapNumber < MAX_SUPPLY, "BITMAP_NUMBER_TOO_LARGE");
+
+    Mutated line:
+                 require(_bitmapNumber >= MAX_SUPPLY, "BITMAP_NUMBER_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 262
+    Result: Killed
+    Original line:
+                 require(storedBit == 1, "ALREADY_MINTED");
+
+    Mutated line:
+                 require(storedBit != 1, "ALREADY_MINTED");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 174
+    Result: Lived
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value == PRICE / _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 175
+    Result: Lived
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() - _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 217
+    Result: Error
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() - 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 238
+    Result: Error
+    Original line:
+                 require((totalSupply() + 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() - 1) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 251
+    Result: Error
+    Original line:
+                     bitmapArrIdx = _bitmapNumber / 256;
+
+    Mutated line:
+                     bitmapArrIdx = _bitmapNumber * 256;
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 259
+    Result: Killed
+    Original line:
+                 uint256 storedBit = (localBitmap >> offsetWithinLocalBitmap) &
+
+    Mutated line:
+                 uint256 storedBit = (localBitmap >> offsetWithinLocalBitmap) | uint256(1);
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 259
+    Result: Killed
+    Original line:
+                 uint256 storedBit = (localBitmap >> offsetWithinLocalBitmap) &
+
+    Mutated line:
+                 uint256 storedBit = (localBitmap << offsetWithinLocalBitmap) &
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 266
+    Result: Lived
+    Original line:
+                 localBitmap = localBitmap & ~(uint256(1) << offsetWithinLocalBitmap);
+
+    Mutated line:
+                 localBitmap = localBitmap | ~(uint256(1) << offsetWithinLocalBitmap);
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 266
+    Result: Lived
+    Original line:
+                 localBitmap = localBitmap & ~(uint256(1) << offsetWithinLocalBitmap);
+
+    Mutated line:
+                 localBitmap = localBitmap & ~(uint256(1) >> offsetWithinLocalBitmap);
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 47
+    Result: Lived
+    Original line:
+                 _setDefaultRoyalty(msg.sender, ROYALTY_FEE);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 179
+    Result: Lived
+    Original line:
+                     _safeMint(msg.sender, supplyCounter.current());
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 226
+    Result: Killed
+    Original line:
+                 _safeMint(msg.sender, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 268
+    Result: Killed
+    Original line:
+                 _safeMint(msg.sender, 1);
+
+    Mutated line:
+                 
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 46
+    Result: Equivalent
+    Original line:
+             ) ERC721(_name, _symbol) {
+
+    Mutated line:
+             )  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 57
+    Result: Lived
+    Original line:
+             ) public override onlyAllowedOperatorApproval(operator) {
+
+    Mutated line:
+             ) public override  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 68
+    Result: Lived
+    Original line:
+             ) public override onlyAllowedOperatorApproval(operator) {
+
+    Mutated line:
+             ) public override  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 80
+    Result: Lived
+    Original line:
+             ) public override onlyAllowedOperator(from) {
+
+    Mutated line:
+             ) public override  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 92
+    Result: Lived
+    Original line:
+             ) public override onlyAllowedOperator(from) {
+
+    Mutated line:
+             ) public override  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 105
+    Result: Lived
+    Original line:
+             ) public override onlyAllowedOperator(from) {
+
+    Mutated line:
+             ) public override  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 142
+    Result: Lived
+    Original line:
+             function setBaseURI(string calldata _newBaseURI) external onlyOwner {
+
+    Mutated line:
+             function setBaseURI(string calldata _newBaseURI) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 157
+    Result: Lived
+    Original line:
+             function setMerkleRootMapping(bytes32 _merkleRoot) external onlyOwner {
+
+    Mutated line:
+             function setMerkleRootMapping(bytes32 _merkleRoot) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 165
+    Result: Lived
+    Original line:
+             function setMerkleRootBitmap(bytes32 _merkleRoot) external onlyOwner {
+
+    Mutated line:
+             function setMerkleRootBitmap(bytes32 _merkleRoot) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721BitmapMerkle.sol
+    Line nr: 274
+    Result: Lived
+    Original line:
+             function withdraw() external onlyOwner {
+
+    Mutated line:
+             function withdraw() external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 62
+    Result: Killed
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) < MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 64
+    Result: Killed
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i <= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value != PRICE * _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 62
+    Result: Killed
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() + _mintNumber) > MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 64
+    Result: Killed
+    Original line:
+                 for (uint256 i = 0; i < _mintNumber; i++) {
+
+    Mutated line:
+                 for (uint256 i = 0; i >= _mintNumber; i++) {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 61
+    Result: Killed
+    Original line:
+                 require(msg.value == PRICE * _mintNumber, "INVALID_PRICE");
+
+    Mutated line:
+                 require(msg.value == PRICE / _mintNumber, "INVALID_PRICE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 62
+    Result: Error
+    Original line:
+                 require((totalSupply() + _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+    Mutated line:
+                 require((totalSupply() - _mintNumber) <= MAX_SUPPLY, "MINT_TOO_LARGE");
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 65
+    Result: Killed
+    Original line:
+                     _safeMint(msg.sender, supplyCounter.current());
+
+    Mutated line:
+                     
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 32
+    Result: Equivalent
+    Original line:
+             ) ERC721(_name, _symbol) {}
+
+    Mutated line:
+             )  {}
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 45
+    Result: Killed
+    Original line:
+             function setBaseURI(string calldata _newBaseURI) external onlyOwner {
+
+    Mutated line:
+             function setBaseURI(string calldata _newBaseURI) external  {
+
+
+Mutation:
+    File: /Users/intenex/Dropbox/code/rareskills/week2/contracts/ERC721Staking.sol
+    Line nr: 73
+    Result: Killed
+    Original line:
+             function withdraw() external onlyOwner {
+
+    Mutated line:
+             function withdraw() external  {
+
+
