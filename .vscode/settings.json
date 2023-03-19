@@ -1,0 +1,12 @@
+{
+  "open-in-browser.default": "chrome",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "solidity.formatter": "prettier",
+  "[solidity]": {
+    "editor.defaultFormatter": "NomicFoundation.hardhat-solidity",
+    "editor.formatOnSave": true
+  },
+  "editor.inlineSuggest.enabled": true,
+  "git.openRepositoryInParentFolders": "always"
+}

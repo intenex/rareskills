@@ -35,6 +35,7 @@ describe("BitmapMerkleTreeERC721", function () {
       );
       presaleMerkleTreeRootBitmap = presaleMerkleTreeBitmap.getHexRoot();
       presaleMerkleTreeRootMapping = presaleMerkleTreeMapping.getHexRoot();
+      console.log(presaleMerkleTreeRootMapping);
       erc721 = await BitmapMerkleTreeERC721.deploy("TestContract", "TC");
       erc721UserA = erc721.connect(userA);
       erc721UserB = erc721.connect(userB);
