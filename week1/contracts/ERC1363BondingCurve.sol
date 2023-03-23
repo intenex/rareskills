@@ -86,6 +86,11 @@ contract ERC1363BondingCurve is
         _transfer(_from, _to, _amount);
     }
 
+    // for echidna testing of the balance
+    function contractBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
+
     /**
      * @notice Returns the current price of purchasing a token
      */
@@ -97,7 +102,7 @@ contract ERC1363BondingCurve is
      * @notice Function to mint tokens at a bonding curve price
      * @param _amount Amount of tokens to mint in smallest unit of account (18 decimal places)
      */
-    function mintBondingCurve(uint256 _amount) external payable {
+    function mintBondingCurve(uint256 _amount) internal {
         require(
             totalSupply() + _amount <= MAX_SUPPLY,
             "Cannot mint more than max supply"
@@ -111,7 +116,14 @@ contract ERC1363BondingCurve is
         uint256 priceToPay = ((currentPrice + endingPrice) * _amount) /
             oneToken() /
             2;
-        require(msg.value == priceToPay, "Incorrect ETH amount paid");
+        require(msg.value >= priceToPay, "Incorrect ETH amount paid");
+        // refund any extra ETH sent
+        if (msg.value > priceToPay) {
+            (bool success, ) = msg.sender.call{value: msg.value - priceToPay}(
+                ""
+            );
+            require(success, "Transfer failed.");
+        }
 
         _mint(msg.sender, _amount);
     }
